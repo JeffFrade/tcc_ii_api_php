@@ -1,0 +1,5 @@
+*
+!.gitignore
+!restore-db
+!backup.sh
+!restore.sh

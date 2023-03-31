@@ -1,0 +1,89 @@
+version: '3.5'
+services:
+  php-fpm:
+    build: ./docker/php
+    image: tcc-ii/api:php-fpm
+    restart: on-failure
+    container_name: tcc-ii-api-php-fpm
+    command: php-fpm
+    links:
+      - mysql
+      - mongodb
+    volumes:
+      - ./:/api
+    networks:
+      - app
+      - db
+    healthcheck:
+      test: ['CMD', 'sh', '-c', 'netstat -an | fgrep 9000 | fgrep -q LISTEN']
+      interval: 10s
+      timeout: 5s
+      retries: 2
+
+  nginx:
+    build: ./docker/nginx
+    image: tcc-ii/api:nginx
+    restart: on-failure
+    container_name: tcc-ii-api-nginx
+    command: nginx -g "daemon off;"
+    links:
+      - php-fpm
+    ports:
+      - "${DOCKER_NGINX_PORT}:80"
+    volumes:
+      - ./:/api
+    networks:
+      - app
+    healthcheck:
+      test: ['CMD', 'sh', '-c', 'netstat -an | fgrep 80 | fgrep -q LISTEN']
+      interval: 10s
+      timeout: 5s
+      retries: 2
+
+  mysql:
+    build: ./docker/mysql
+    image: tcc-ii/api:mysql
+    restart: on-failure
+    container_name: tcc-ii-api-mysql
+    volumes:
+      - "${DOCKER_DATA_PATH}/mysql:/var/lib/mysql"
+    command:
+      - "--innodb_use_native_aio=0"
+    ports:
+      - "${DB_PORT}:3306"
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    networks:
+      - db
+    healthcheck:
+      test: ['CMD', 'sh', '-c', 'netstat -an | fgrep 3306 | fgrep -q LISTEN']
+      interval: 10s
+      timeout: 5s
+      retries: 2
+
+  mongodb:
+    build: ./docker/mongodb
+    image: tcc-ii/api:mongodb
+    restart: on-failure
+    container_name: tcc-ii-api-mongodb
+    volumes:
+      - ${DOCKER_DATA_PATH}/mongo:/data/db
+      - ./docker/mongodb/backup:/backup
+    ports:
+      - "${MONGODB_PORT}:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+    networks:
+      - db
+    healthcheck:
+      test: ['CMD', 'sh', '-c', 'netstat -an | fgrep 27017 | fgrep -q LISTEN']
+      interval: 10s
+      timeout: 5s
+      retries: 2
+
+networks:
+  app:
+  db:
