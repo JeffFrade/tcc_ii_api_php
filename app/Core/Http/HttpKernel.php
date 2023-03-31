@@ -20,6 +20,7 @@ class HttpKernel extends Kernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Core\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Core\Http\Middleware\LogRequest::class,
     ];
 
     /**
