@@ -3,34 +3,54 @@
 namespace App\Http;
 
 use App\Core\Support\Controller;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Exceptions\InvalidLoginException;
+use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use InvalidArgumentException;
 
 class UserController extends Controller
 {
+    private $userService;
+
+    public function __construct()
+    {
+        $this->userService = new UserService();
+    }
+
     public function login(Request $request)
     {
-        $params = $request->all();
-        //$params['password'] = bcrypt($params['password'] ?? '');
+        try {
+            $params = $this->toValidateLogin($request);
 
-        if (!Auth::attempt(['username' => $params['username'], 'password' => $params['password']])) {
-            throw new HttpResponseException(response()->json([
-                'data' => [
-                    'message' => 'Usuário ou senha incorretos.'
-                ]
-            ], 400));
+            $user = $this->userService->login($params);
+
+            return response()->json([
+                'data' => $user
+            ]);
+        } catch (InvalidLoginException $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 403);
+        }
+    }
+
+    protected function toValidateLogin(Request $request)
+    {
+        $toValidateArr = [
+            'username' => 'required',
+            'password' => 'required'
+        ];
+
+        $validation = $this->validate($request, $toValidateArr);
+
+        if (empty($validation) === true) {
+            throw new InvalidArgumentException('Parâmetros vazios');
         }
 
-        $user = JWTAuth::fromUser(Auth::user());
+        if (empty($validation['error']) === false) {
+            throw new InvalidArgumentException($validation['error']);
+        }
 
-        return response()->json([
-            'data' => [
-                'type' => 'Bearer',
-                'token' => $user,
-                'user' => Auth::user()
-            ]
-        ]);
-  }
+        return $validation;
+    }
 }
