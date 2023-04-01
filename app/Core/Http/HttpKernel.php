@@ -21,6 +21,7 @@ class HttpKernel extends Kernel
         \App\Core\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Core\Http\Middleware\LogRequest::class,
+        \App\Core\Http\Middleware\AlwaysExpectsJson::class,
     ];
 
     /**
