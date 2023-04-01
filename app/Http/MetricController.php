@@ -3,6 +3,8 @@
 namespace App\Http;
 
 use App\Core\Support\Controller;
+use App\Exceptions\InvalidLoginException;
+use App\Exceptions\MetricNotFoundException;
 use App\Services\MetricService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -17,6 +19,17 @@ class MetricController extends Controller
         $this->metricService = $metricService;
     }
 
+    public function index(Request $request)
+    {
+        try {
+
+        } catch (MetricNotFoundException $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function store(Request $request)
     {
         try {
@@ -27,8 +40,8 @@ class MetricController extends Controller
                 'data' => $data,
                 'message' => 'Métrica Cadastrada Com Sucesso!'
             ], 200);
-        } catch (ValidationException $e) {
-            return response()->json($e->getMessage(), 500);
+        } catch (InvalidArgumentException $e) {
+            return response()->json($e->getMessage(), 400);
         }
     }
 
