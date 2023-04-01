@@ -1,4 +1,4 @@
-FROM composer:1 AS composer
+FROM composer:2 AS composer
 FROM php:8.2-fpm
 
 USER root
