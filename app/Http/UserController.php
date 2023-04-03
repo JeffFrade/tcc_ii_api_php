@@ -17,6 +17,31 @@ class UserController extends Controller
         $this->userService = new UserService();
     }
 
+    /**
+     * @OA\Info(title="TCC II Api", version="0.1")
+     */
+
+    /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     @OA\Response(response="200", description="Login efetuado com sucesso"),
+     *     @OA\Response(response="403", description="Usuário ou senha inválidos")
+     * )
+     *
+     * @OA\Schema(
+     *      @OA\Property(
+     *          property="username",
+     *          type="string",
+     *          description="Usuário"
+     *      ),
+     *
+     *      @OA\Property(
+     *          property="password",
+     *          type="string",
+     *          description="Senha"
+     *      )
+     * )
+     */
     public function login(Request $request)
     {
         try {

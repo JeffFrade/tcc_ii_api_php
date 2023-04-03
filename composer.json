@@ -10,7 +10,8 @@
         "jenssegers/mongodb": "^3.9",
         "laravel/framework": "^9.19",
         "laravel/tinker": "^2.7",
-        "tymon/jwt-auth": "^2.0"
+        "tymon/jwt-auth": "^2.0",
+        "zircote/swagger-php": "^4.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
