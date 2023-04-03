@@ -30,6 +30,7 @@ services:
       - php-fpm
     ports:
       - "${DOCKER_NGINX_PORT}:80"
+      - "${DOCKER_NGINX_SWAGGER_PORT}:81"
     volumes:
       - ./:/api
     networks:

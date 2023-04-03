@@ -38,7 +38,8 @@ class MetricController extends Controller
      * @OA\Post(
      *     path="/api/dispositivos",
      *     @OA\Response(response="200", description="Armazenamento dos dados efetuado com sucesso"),
-     *     @OA\Response(response="400", description="Erro na validação dos campos, seja por campos vazios ou formato inválido")
+     *     @OA\Response(response="400", description="Erro na validação dos campos, seja por campos vazios ou formato inválido"),
+     *     @OA\Response(response="401", description="Erro de login/expiração do token")
      * )
      */
     public function store(Request $request)
