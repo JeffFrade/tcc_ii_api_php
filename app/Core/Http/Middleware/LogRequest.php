@@ -16,7 +16,7 @@ class LogRequest
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        $log = sprintf('IP: %s | endpoint: %s | Request: ', request()->ip(), request()->path());
+        $log = sprintf('IP: %s | Endpoint: %s | Request: ', request()->ip(), request()->path());
         app('log')->info($log, $request->all());
 
         return $response;
