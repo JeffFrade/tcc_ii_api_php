@@ -10,6 +10,9 @@
                     },
                     "400": {
                         "description": "Erro na validação dos campos, seja por campos vazios ou formato inválido"
+                    },
+                    "401": {
+                        "description": "Erro de login/expiração do token"
                     }
                 }
             }
