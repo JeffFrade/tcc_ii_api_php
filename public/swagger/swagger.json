@@ -1,8 +1,18 @@
 {
     "openapi": "3.0.0",
+    "info": {
+        "title": "TCC II Api",
+        "version": "1.1.3"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
     "paths": {
         "/api/dispositivos": {
             "post": {
+                "summary": "Insere dados vindos do Arduino.",
                 "operationId": "8a088291b39e16c330c064ca28d7c682",
                 "responses": {
                     "200": {
@@ -19,19 +29,36 @@
         },
         "/api/login": {
             "post": {
+                "summary": "Gera o token para utilizar a API.",
                 "operationId": "d686408fdc5f0c749c51c96be64a8f60",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "body",
+                        "description": "Usuário",
+                        "required": true,
+                        "example": "admin"
+                    },
+                    {
+                        "name": "password",
+                        "in": "body",
+                        "description": "Senha",
+                        "required": true,
+                        "example": "password"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Login efetuado com sucesso"
                     },
                     "403": {
                         "description": "Usuário ou senha inválidos"
+                    },
+                    "422": {
+                        "description": "Erro de validação nos campos username ou password"
                     }
                 }
             }
         }
-    },
-    "components": {
-        "schemas": {}
     }
 }
