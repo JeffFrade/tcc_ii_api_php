@@ -8,6 +8,9 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 
+/**
+ * @OA\Server(url=API_HOST)
+ */
 class UserController extends Controller
 {
     private $userService;
@@ -18,28 +21,14 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Info(title="TCC II Api", version="0.1")
-     */
-
-    /**
      * @OA\Post(
+     *     summary="Gera o token para utilizar a API.",
      *     path="/api/login",
      *     @OA\Response(response="200", description="Login efetuado com sucesso"),
-     *     @OA\Response(response="403", description="Usuário ou senha inválidos")
-     * )
-     *
-     * @OA\Schema(
-     *      @OA\Property(
-     *          property="username",
-     *          type="string",
-     *          description="Usuário"
-     *      ),
-     *
-     *      @OA\Property(
-     *          property="password",
-     *          type="string",
-     *          description="Senha"
-     *      )
+     *     @OA\Response(response="403", description="Usuário ou senha inválidos"),
+     *     @OA\Response(response="422", description="Erro de validação nos campos username ou password"),
+     *     @OA\Parameter(in="body", name="username", description="Usuário", required=true, example="admin"),
+     *     @OA\Parameter(in="body", name="password", description="Senha", required=true, example="password")
      * )
      */
     public function login(Request $request)
