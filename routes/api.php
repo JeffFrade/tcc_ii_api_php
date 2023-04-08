@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 // Route::group(['middleware' => 'jwt.auth'], function () {
 Route::group([], function () {
     Route::group(['prefix' => 'dispositivos'], function () {
+        Route::get('/', 'MetricController@index')->name('dispositivos.index');
         Route::post('/', 'MetricController@store')->name('dispositivos.store');
     });
 });

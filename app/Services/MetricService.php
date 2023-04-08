@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\Exceptions\MetricNotFoundException;
 use App\Repositories\MetricRepository;
 
 class MetricService
@@ -10,6 +11,17 @@ class MetricService
     public function __construct()
     {
         $this->metricRepository = new MetricRepository();
+    }
+
+    public function index()
+    {
+        $metrics = $this->metricRepository->allNoTrashed();
+
+        if (empty($metrics)) {
+            throw new MetricNotFoundException("Não há dados.");
+        }
+
+        return $metrics;
     }
 
     public function store(array $data)
