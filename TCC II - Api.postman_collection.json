@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "bfa10a3d-3cd4-4234-be44-8243f8a47150",
+		"name": "TCC II - Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"test_1\",\n\t\"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.201.117.107:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"34",
+						"201",
+						"117",
+						"107"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					]
+				},
+				"description": "Requisição para Login na API (Obter o Token Bearer para utilizar os recursos)."
+			},
+			"response": []
+		},
+		{
+			"name": "Armazenamento de Dados",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMzQuMjAxLjExNy4xMDc6ODA4MC9hcGkvbG9naW4iLCJpYXQiOjE2ODAzMjU4MTIsImV4cCI6MTY4MDMyOTQxMiwibmJmIjoxNjgwMzI1ODEyLCJqdGkiOiJJWDZuVWZnczkwemw0R3ZCIiwic3ViIjoiMSIsInBydiI6IjcxMTA3ZWU2YWM4ZWRlYmEwYzgxZDUwNTJlNzI3NjU1ZDE3YzZiMTEiLCJpZCI6MX0.J6C0nMKSfPEjcxCjYrrrXxCxAf2Tw2xtkTCXsmbdb-c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_arduino\": 1,\n\t\"alcool\" : 0.686999976634979,\n    \"benzeno\" : 0.365000009536743,\n    \"hexano\" : 0.153999999165535,\n    \"metano\" : 0.365000009536743,\n    \"fumaca\" : 0.254000008106232,\n    \"dioxido_carbono\" : 5.03599977493286,\n    \"tolueno\" : 0.498699992895126,\n    \"amonia\" : 0.598699986934662,\n    \"acetona\" : 0.0,\n    \"monoxido_carbono\" : 0.356000006198883,\n    \"hidrogenio\" : 0.123000003397465,\n    \"gases_inflamaveis\" : 0.119999997317791,\n    \"temperatura\" : 0.125,\n    \"umidade\" : 0.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.201.117.107:8080/api/dispositivos",
+					"protocol": "http",
+					"host": [
+						"34",
+						"201",
+						"117",
+						"107"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"dispositivos"
+					]
+				},
+				"description": "Requisição para armazenamento dos dados enviados pelo Arduino."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
