@@ -6,39 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"username\": \"test_1\",\n\t\"password\": \"123\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://34.201.117.107:8080/api/login",
-					"protocol": "http",
-					"host": [
-						"34",
-						"201",
-						"117",
-						"107"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"login"
-					]
-				},
-				"description": "Requisição para Login na API (Obter o Token Bearer para utilizar os recursos)."
-			},
-			"response": []
-		},
-		{
 			"name": "Armazenamento de Dados",
 			"request": {
 				"auth": {
@@ -78,6 +45,17 @@
 					]
 				},
 				"description": "Requisição para armazenamento dos dados enviados pelo Arduino."
+			},
+			"response": []
+		},
+		{
+			"name": "Visualização dos Dados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		}
