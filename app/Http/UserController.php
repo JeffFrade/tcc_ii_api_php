@@ -20,17 +20,6 @@ class UserController extends Controller
         $this->userService = new UserService();
     }
 
-    /**
-     * @OA\Post(
-     *     summary="Gera o token para utilizar a API.",
-     *     path="/api/login",
-     *     @OA\Response(response="200", description="Login efetuado com sucesso"),
-     *     @OA\Response(response="403", description="Usuário ou senha inválidos"),
-     *     @OA\Response(response="422", description="Erro de validação nos campos username ou password"),
-     *     @OA\Parameter(in="body", name="username", description="Usuário", required=true, example="admin"),
-     *     @OA\Parameter(in="body", name="password", description="Senha", required=true, example="password")
-     * )
-     */
     public function login(Request $request)
     {
         try {
