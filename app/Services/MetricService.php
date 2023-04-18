@@ -13,11 +13,20 @@ class MetricService
         $this->metricRepository = new MetricRepository();
     }
 
-    public function index()
+    public function index(array $data)
     {
-        $metrics = $this->metricRepository->allNoTrashed();
+        $idArduino = $data['id_arduino'] ?? 0;
+        $period = $data['period'] ?? [];
 
-        if (empty($metrics)) {
+        if (count($data['metrics']) > 0) {
+            $data['metrics'][] = 'created_at';
+        }
+
+        $metrics = $data['metrics'] ?? ['*'];
+
+        $metrics = $this->metricRepository->index($idArduino, $period, $metrics);
+
+        if (count($metrics) == 0) {
             throw new MetricNotFoundException("Não há dados.");
         }
 

@@ -28,8 +28,10 @@ class MetricController extends Controller
     public function index(Request $request)
     {
         try {
+            $params = $request->all();
+
             return response()->json([
-                'data' => $this->metricService->index(),
+                'data' => $this->metricService->index($params),
                 'message' => 'Métricas encontradas!'
             ]);
         } catch (MetricNotFoundException $e) {
