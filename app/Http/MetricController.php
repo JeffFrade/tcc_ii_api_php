@@ -3,11 +3,11 @@
 namespace App\Http;
 
 use App\Core\Support\Controller;
-use App\Exceptions\InvalidLoginException;
+use App\Exceptions\InvalidDateException;
+use App\Exceptions\InvalidPeriodException;
 use App\Exceptions\MetricNotFoundException;
 use App\Services\MetricService;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use InvalidArgumentException;
 
 /**
@@ -28,8 +28,10 @@ class MetricController extends Controller
     public function index(Request $request)
     {
         try {
+            $params = $this->toValidateIndex($request);
+
             return response()->json([
-                'data' => $this->metricService->index(),
+                'data' => $this->metricService->index($params),
                 'message' => 'Métricas encontradas!'
             ]);
         } catch (MetricNotFoundException $e) {
@@ -62,7 +64,7 @@ class MetricController extends Controller
                 'data' => $data,
                 'message' => 'Métrica Cadastrada Com Sucesso!'
             ], 200);
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException | InvalidPeriodException | InvalidDateException $e) {
             return response()->json($e->getMessage(), 400);
         }
     }
@@ -92,6 +94,23 @@ class MetricController extends Controller
         if (empty($validation) === true) {
             throw new InvalidArgumentException('Parâmetros vazios');
         }
+
+        if (empty($validation['error']) === false) {
+            throw new InvalidArgumentException($validation['error']);
+        }
+
+        return $validation;
+    }
+
+    protected function toValidateIndex(Request $request)
+    {
+        $toValidateArr = [
+            'id_arduino' => 'nullable|numeric',
+            'metrics' => 'nullable|array',
+            'period' => 'nullable|array'
+        ];
+
+        $validation = $this->validate($request, $toValidateArr);
 
         if (empty($validation['error']) === false) {
             throw new InvalidArgumentException($validation['error']);
