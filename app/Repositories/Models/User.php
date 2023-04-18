@@ -14,6 +14,11 @@ class User extends Authenticatable implements JWTSubject
     use HasFactory, Notifiable, SoftDeletes;
 
     /**
+     * @var string
+     */
+    protected $connection = 'mysql';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
