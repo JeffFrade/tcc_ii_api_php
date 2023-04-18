@@ -30,4 +30,9 @@ class UserService
             'user' => Auth::user()
         ];
     }
+
+    public function getArduinos()
+    {
+        return $this->userRepository->allNoTrashed();
+    }
 }

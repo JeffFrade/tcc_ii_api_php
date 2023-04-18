@@ -37,6 +37,13 @@ class UserController extends Controller
         }
     }
 
+    public function getArduinos()
+    {
+        return response()->json([
+            'data' => $this->userService->getArduinos()
+        ], 200);
+    }
+
     protected function toValidateLogin(Request $request)
     {
         $toValidateArr = [
