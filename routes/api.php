@@ -22,4 +22,8 @@ Route::group([], function () {
         Route::get('/', 'MetricController@index')->name('dispositivos.index');
         Route::post('/', 'MetricController@store')->name('dispositivos.store');
     });
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/arduinos', 'UserController@getArduinos')->name('user.arduinos');
+    });
 });
