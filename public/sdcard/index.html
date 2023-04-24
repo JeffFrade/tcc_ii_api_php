@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>J3M - Montagem de Cartão SD</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <style type="text/css">
+            main {
+                margin-top: 20px;
+            }
+
+            .download-file {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <span class="navbar-brand mb-0 h1">J3M - Montagem de Cartão SD</span>
+                </div>
+              </nav>
+        </header>
+
+        <main>
+            <div class="container-fluid">
+                <h1 class="text-center">Montagem de Cartão SD</h1>
+                <hr/>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="id_j3m">ID do J3M:</label>
+                            <select id="id_j3m" name="id_j3m" class="form-control" disabled="disabled"></select>
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="interval">Intervalo:</label>
+                            <input type="time" id="interval" name="interval" class="form-control" placeholder="Intervalo" min="00:01" max="01:00">
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary btn-generate"><i class="fa fa-sd-card"></i>&nbsp; Gerar Arquivo de Configuração</button>
+                    </div>
+
+                    <div class="download"></div>
+                </div>
+            </div>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js"></script>
+        <script type="text/javascript">
+            let host = "http://18.214.175.44:8080";
+
+            $.notifyDefaults({
+                z_index: 100000
+            });
+
+            $.ajax({
+                contentType: 'application/json',
+                method: 'GET',
+                url: `${host}/api/users/arduinos`,
+                timeout: 0,
+                success: function (response) {
+                    let data = response.data;
+                    let select = $('#id_j3m');
+
+                    select.removeAttr('disabled');
+                    select.append(`<option value="">Selecione uma Opção</option>`);
+
+                    for (let i in data) {
+                        let item = data[i];
+                        select.append(`<option value=${item.id}>${item.name}</option>`);
+                    }
+                },
+
+                error: function (err) {
+                    console.error(err);
+                }
+            });
+
+            $('.btn-generate').on('click', function () {
+                let interval = $('#interval').val();
+                let j3mId = $('#id_j3m').val();
+                let error = false;
+
+                if (j3mId == "") {
+                    toastr('Preencha o campo ID do J3M', 'danger');
+                    error = true;
+                }
+
+                if (interval == "") {
+                    toastr('Preencha o campo intervalo', 'danger');
+                    error = true;
+                }
+
+                if (error === true) {
+                    return false;
+                }
+
+                interval = interval.split(":");
+                interval = (+interval[0] * (60000 * 60)) + (+interval[1] * 60000);
+
+                if (interval < 60000) {
+                    interval = 60000;
+                }
+                
+                if (interval > 3600000) {
+                    interval = 3600000;
+                }
+
+                let config = `{"id": ${j3mId}, "host": "${host}", "interval": ${interval}}`;
+
+                $('.download').append(`<a href="data:text/plain;charset=utf-8,${encodeURIComponent(config)}" download="config.txt" class="download-file">XXX</a>`);
+                document.getElementsByClassName('download-file')[0].click();
+
+                $('.download').remove('.download-file');
+
+                toastr("Arquivo gerado com sucesso!");
+            });
+
+            function toastr(message, type = "success") {
+                $.notify({
+                    message: message
+                }, {
+                    type: type,
+                    allow_dismiss: false,
+                    newest_on_top: true,
+                });
+            }
+        </script>
+    </body>
+</html>
+
