@@ -9,14 +9,7 @@
 			"name": "Armazenamento de Dados",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMzQuMjAxLjExNy4xMDc6ODA4MC9hcGkvbG9naW4iLCJpYXQiOjE2ODAzMjU4MTIsImV4cCI6MTY4MDMyOTQxMiwibmJmIjoxNjgwMzI1ODEyLCJqdGkiOiJJWDZuVWZnczkwemw0R3ZCIiwic3ViIjoiMSIsInBydiI6IjcxMTA3ZWU2YWM4ZWRlYmEwYzgxZDUwNTJlNzI3NjU1ZDE3YzZiMTEiLCJpZCI6MX0.J6C0nMKSfPEjcxCjYrrrXxCxAf2Tw2xtkTCXsmbdb-c",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [],
@@ -30,13 +23,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://34.201.117.107:8080/api/dispositivos",
+					"raw": "http://18.214.175.44:8080/api/dispositivos",
 					"protocol": "http",
 					"host": [
-						"34",
-						"201",
-						"117",
-						"107"
+						"18",
+						"214",
+						"175",
+						"44"
 					],
 					"port": "8080",
 					"path": [
@@ -54,7 +47,60 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://18.214.175.44:8080/api/dispositivos?metrics[]=tolueno&metrics[]=temperatura&id_arduino=1",
+					"protocol": "http",
+					"host": [
+						"18",
+						"214",
+						"175",
+						"44"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"dispositivos"
+					],
+					"query": [
+						{
+							"key": "metrics[]",
+							"value": "tolueno",
+							"description": "Opcional"
+						},
+						{
+							"key": "metrics[]",
+							"value": "temperatura",
+							"description": "Opcional"
+						},
+						{
+							"key": "id_arduino",
+							"value": "1",
+							"description": "Opcional"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Visualização de Sensores Cadastrados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.214.175.44:8080/api/users/arduinos",
+					"protocol": "http",
+					"host": [
+						"18",
+						"214",
+						"175",
+						"44"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"arduinos"
+					]
 				}
 			},
 			"response": []
