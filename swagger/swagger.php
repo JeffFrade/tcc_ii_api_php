@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-define("API_HOST", (env('APP_ENV', 'local')  == 'local') ? "http://localhost:8000" : "http://34.201.117.107:8080");
+define("API_HOST", (env('APP_ENV', 'local')  == 'local') ? "http://localhost:8000" : "http://18.214.175.44:8080");
 
 $openapi = \OpenApi\Generator::scan([__DIR__ . '/../app/Http']);
 

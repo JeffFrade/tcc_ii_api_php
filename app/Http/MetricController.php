@@ -13,7 +13,7 @@ use InvalidArgumentException;
 /**
  * @OA\Info(
  *     title="TCC II Api",
- *     version="1.1.4"
+ *     version="1.5.3"
  * )
  */
 class MetricController extends Controller
@@ -25,6 +25,35 @@ class MetricController extends Controller
         $this->metricService = $metricService;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/dispositivos",
+     *     summary="Exibe dados vindos do Arduino.",
+     *     @OA\Parameter(
+     *          name="metrics[]",
+     *          description="Array com as métricas que deseja exibir (Valores válidos e que podem ser combinados: alcool, benzeno, hexano, metano, fumaca, dioxido_carbono, tolueno, amonia, acetona, monoxido_carbono, hidrogenio, gases_inflamaveis, temperatura e umidade.)",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="array",
+     *              @OA\Items(type="string"),
+     *          ),
+     *          style="form"
+     *     ),
+     *     @OA\Parameter(
+     *          name="id_arduino",
+     *          description="ID do dispositivo J3M do qual deseja obter as métricas",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="int",
+     *              example=1,
+     *          ),
+     *          style="form"
+     *     ),
+     *     @OA\Response(response="200", description="Há dados para os parâmetros informados"),
+     *     @OA\Response(response="400", description="Erro na validação dos campos, seja por campos vazios ou formato inválido"),
+     *     @OA\Response(response="500", description="Não há dados para os parâmetros informados"),
+     * )
+     */
     public function index(Request $request)
     {
         try {
@@ -49,9 +78,106 @@ class MetricController extends Controller
      * @OA\Post(
      *     path="/api/dispositivos",
      *     summary="Insere dados vindos do Arduino.",
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(
+     *                      property="id_arduino",
+     *                      description="ID do dispositivo do J3M",
+     *                      type="int",
+     *                      example=1
+     *                  ),
+     *                  @OA\Property(
+     *                      property="alcool",
+     *                      description="Total ppm de Álcool",
+     *                      type="float",
+     *                      example=0.686999976634979
+     *                  ),
+     *                  @OA\Property(
+     *                      property="benzeno",
+     *                      description="Total ppm de Benzeno",
+     *                      type="float",
+     *                      example=0.365000009536743
+     *                  ),
+     *                  @OA\Property(
+     *                      property="hexano",
+     *                      description="Total ppm de Hexano",
+     *                      type="float",
+     *                      example=0.153999999165535
+     *                  ),
+     *                  @OA\Property(
+     *                      property="metano",
+     *                      description="Total ppm de Metano",
+     *                      type="float",
+     *                      example=0.365000009536743
+     *                  ),
+     *                  @OA\Property(
+     *                      property="fumaca",
+     *                      description="Total ppm de Fumaça",
+     *                      type="float",
+     *                      example=0.254000008106232
+     *                  ),
+     *                  @OA\Property(
+     *                      property="dioxido_carbono",
+     *                      description="Total ppm de Dióxido de Carbono",
+     *                      type="float",
+     *                      example=5.03599977493286
+     *                  ),
+     *                  @OA\Property(
+     *                      property="tolueno",
+     *                      description="Total ppm de Tolueno",
+     *                      type="float",
+     *                      example=0.498699992895126
+     *                  ),
+     *                  @OA\Property(
+     *                      property="amonia",
+     *                      description="Total ppm de Amônia",
+     *                      type="float",
+     *                      example=0.598699986934662
+     *                  ),
+     *                  @OA\Property(
+     *                      property="acetona",
+     *                      description="Total ppm de Acetona",
+     *                      type="float",
+     *                      example=0.0
+     *                  ),
+     *                  @OA\Property(
+     *                      property="monoxido_carbono",
+     *                      description="Total ppm de Monóxido de Carbono",
+     *                      type="float",
+     *                      example=0.356000006198883
+     *                  ),
+     *                  @OA\Property(
+     *                      property="hidrogenio",
+     *                      description="Total ppm de Hidrogênio",
+     *                      type="float",
+     *                      example=0.123000003397465
+     *                  ),
+     *                  @OA\Property(
+     *                      property="gases_inflamaveis",
+     *                      description="Total ppm de Gases Inflamáveis",
+     *                      type="float",
+     *                      example=0.119999997317791
+     *                  ),
+     *                  @OA\Property(
+     *                      property="temperatura",
+     *                      description="Temperatura em Graus Celsius",
+     *                      type="float",
+     *                      example=27.5
+     *                  ),
+     *                  @OA\Property(
+     *                      property="umidade",
+     *                      description="Umidade em percentual",
+     *                      type="float",
+     *                      example=75.3
+     *                  ),
+     *              ),
+     *          ),
+     *     ),
      *     @OA\Response(response="200", description="Armazenamento dos dados efetuado com sucesso"),
-     *     @OA\Response(response="400", description="Erro na validação dos campos, seja por campos vazios ou formato inválido"),
-     *     @OA\Response(response="401", description="Erro de login/expiração do token")
+     *     @OA\Response(response="422", description="Erro na validação dos campos, seja por campos vazios ou formato inválido")
      * )
      */
     public function store(Request $request)
