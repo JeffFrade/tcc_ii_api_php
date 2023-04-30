@@ -26,10 +26,6 @@ class MetricController extends Controller
     }
 
     /**
-     * @OA\Info(title="TCC II Api", version="0.1")
-     */
-
-    /**
      * @OA\Get(
      *     path="/api/dispositivos",
      *     summary="Exibe dados vindos do Arduino.",
