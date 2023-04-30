@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Core\Support\Controller;
 use App\Exceptions\InvalidLoginException;
+use App\Exceptions\UserNotFoundException;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
@@ -37,11 +38,25 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/users/arduinos",
+     *     summary="Exibe Dispositivos Cadastrados.",
+     *     @OA\Response(response="200", description="Há dados cadastrados"),
+     *     @OA\Response(response="404", description="Não há dados cadastrados"),
+     * )
+     */
     public function getArduinos()
     {
-        return response()->json([
-            'data' => $this->userService->getArduinos()
-        ], 200);
+        try {
+            return response()->json([
+                'data' => $this->userService->getArduinos()
+            ], 200);
+        } catch (UserNotFoundException $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 404);
+        }
     }
 
     protected function toValidateLogin(Request $request)

@@ -139,6 +139,20 @@
                     }
                 }
             }
+        },
+        "/api/users/arduinos": {
+            "get": {
+                "summary": "Exibe Dispositivos Cadastrados.",
+                "operationId": "84df591735ee684189dc06a2cacf7054",
+                "responses": {
+                    "200": {
+                        "description": "Há dados cadastrados"
+                    },
+                    "404": {
+                        "description": "Não há dados cadastrados"
+                    }
+                }
+            }
         }
     }
 }
