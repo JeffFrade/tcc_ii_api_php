@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "TCC II Api",
-        "version": "1.1.4"
+        "version": "1.5.3"
     },
     "servers": [
         {
@@ -142,7 +142,7 @@
         },
         "/api/users/arduinos": {
             "get": {
-                "summary": "Exibe Dispositivos Cadastrados.",
+                "summary": "Exibe dispositivos cadastrados.",
                 "operationId": "84df591735ee684189dc06a2cacf7054",
                 "responses": {
                     "200": {
