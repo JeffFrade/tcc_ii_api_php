@@ -43,7 +43,7 @@ class UserController extends Controller
      *     path="/api/users/arduinos",
      *     summary="Exibe dispositivos cadastrados.",
      *     @OA\Response(response="200", description="Há dados cadastrados"),
-     *     @OA\Response(response="404", description="Não há dados cadastrados"),
+     *     @OA\Response(response="500", description="Não há dados cadastrados"),
      * )
      */
     public function getArduinos()

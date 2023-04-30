@@ -14,6 +14,30 @@
             "get": {
                 "summary": "Exibe dados vindos do Arduino.",
                 "operationId": "ad5277a0637d153f4aaf1334d70a4ac8",
+                "parameters": [
+                    {
+                        "name": "metrics[]",
+                        "in": "query",
+                        "description": "Array com as métricas que deseja exibir (Valores válidos e que podem ser combinados: alcool, benzeno, hexano, metano, fumaca, dioxido_carbono, tolueno, amonia, acetona, monoxido_carbono, hidrogenio, gases_inflamaveis, temperatura e umidade.)",
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "id_arduino",
+                        "in": "query",
+                        "description": "ID do dispositivo J3M do qual deseja obter as métricas",
+                        "style": "form",
+                        "schema": {
+                            "type": "int",
+                            "example": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Há dados para os parâmetros informados"
@@ -21,7 +45,7 @@
                     "400": {
                         "description": "Erro na validação dos campos, seja por campos vazios ou formato inválido"
                     },
-                    "404": {
+                    "500": {
                         "description": "Não há dados para os parâmetros informados"
                     }
                 }
@@ -148,7 +172,7 @@
                     "200": {
                         "description": "Há dados cadastrados"
                     },
-                    "404": {
+                    "500": {
                         "description": "Não há dados cadastrados"
                     }
                 }

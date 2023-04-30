@@ -33,9 +33,29 @@ class MetricController extends Controller
      * @OA\Get(
      *     path="/api/dispositivos",
      *     summary="Exibe dados vindos do Arduino.",
+     *     @OA\Parameter(
+     *          name="metrics[]",
+     *          description="Array com as métricas que deseja exibir (Valores válidos e que podem ser combinados: alcool, benzeno, hexano, metano, fumaca, dioxido_carbono, tolueno, amonia, acetona, monoxido_carbono, hidrogenio, gases_inflamaveis, temperatura e umidade.)",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="array",
+     *              @OA\Items(type="string"),
+     *          ),
+     *          style="form"
+     *     ),
+     *     @OA\Parameter(
+     *          name="id_arduino",
+     *          description="ID do dispositivo J3M do qual deseja obter as métricas",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="int",
+     *              example=1,
+     *          ),
+     *          style="form"
+     *     ),
      *     @OA\Response(response="200", description="Há dados para os parâmetros informados"),
      *     @OA\Response(response="400", description="Erro na validação dos campos, seja por campos vazios ou formato inválido"),
-     *     @OA\Response(response="404", description="Não há dados para os parâmetros informados"),
+     *     @OA\Response(response="500", description="Não há dados para os parâmetros informados"),
      * )
      */
     public function index(Request $request)
