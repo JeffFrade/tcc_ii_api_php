@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\InvalidLoginException;
+use App\Exceptions\UserNotFoundException;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -33,6 +34,12 @@ class UserService
 
     public function getArduinos()
     {
-        return $this->userRepository->allNoTrashed();
+        $users = $this->userRepository->allNoTrashed();
+
+        if (count($users) == 0) {
+            throw new UserNotFoundException('Não há dados');
+        }
+
+        return $users;
     }
 }
