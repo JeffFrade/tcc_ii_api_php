@@ -13,7 +13,7 @@ use InvalidArgumentException;
 /**
  * @OA\Info(
  *     title="TCC II Api",
- *     version="1.5.4"
+ *     version="1.5.5"
  * )
  */
 class MetricController extends Controller
@@ -58,9 +58,11 @@ class MetricController extends Controller
     {
         try {
             $params = $this->toValidateIndex($request);
+            $metrics = $this->metricService->index($params);
 
             return response()->json([
-                'data' => $this->metricService->index($params),
+                'data' => $metrics,
+                'total' => count($metrics),
                 'message' => 'Métricas encontradas!'
             ]);
         } catch (MetricNotFoundException $e) {
