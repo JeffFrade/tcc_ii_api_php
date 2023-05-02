@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Collections;
 
+use App\Helpers\DateHelper;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
@@ -40,4 +41,14 @@ class Metric extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s'
     ];
+
+    public function getCreatedAtAttribute(string $date)
+    {
+	    return DateHelper::convertDate($date);
+    }
+
+    public function getUpdatedAtAttribute(string $date)
+    {
+	    return DateHelper::convertDate($date);
+    }
 }

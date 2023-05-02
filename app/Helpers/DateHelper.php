@@ -24,4 +24,11 @@ class DateHelper
 
         return $matches[0][0] ?? false;
     }
+
+    public static function convertDate(string $date)
+    {
+        return Carbon::parse($date)
+            ->setTimezone(env('APP_TIMEZONE', 'UTC'))
+            ->format('Y-m-d H:i:s');
+    }
 }
