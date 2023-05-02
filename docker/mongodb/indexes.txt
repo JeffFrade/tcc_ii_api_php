@@ -1,0 +1,4 @@
+db.metrics.createIndex(
+  { id_arduino: 1 } ,
+  { name: "Query de consulta por Arduino ID" }
+);
