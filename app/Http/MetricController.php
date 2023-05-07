@@ -13,7 +13,7 @@ use InvalidArgumentException;
 /**
  * @OA\Info(
  *     title="TCC II Api",
- *     version="1.5.7"
+ *     version="1.6.0"
  * )
  */
 class MetricController extends Controller
@@ -46,6 +46,16 @@ class MetricController extends Controller
      *          @OA\Schema(
      *              type="int",
      *              example=1,
+     *          ),
+     *          style="form"
+     *     ),
+     *     @OA\Parameter(
+     *          name="period[]",
+     *          description="Array com as datas de início e término (Formato: Y-m-d Ex: 2023-01-01), é obrigatório passar 2 datas para o funcionamento correto",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="array",
+     *              @OA\Items(type="string"),
      *          ),
      *          style="form"
      *     ),
