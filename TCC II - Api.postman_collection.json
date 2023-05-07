@@ -47,7 +47,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://18.214.175.44:8080/api/dispositivos?metrics[]=tolueno&metrics[]=temperatura&id_arduino=1",
+					"raw": "http://18.214.175.44:8080/api/dispositivos?metrics[]=tolueno&metrics[]=temperatura&id_arduino=1&period[]=2023-04-01&period[]=2023-04-30",
 					"protocol": "http",
 					"host": [
 						"18",
@@ -75,6 +75,16 @@
 							"key": "id_arduino",
 							"value": "1",
 							"description": "Opcional"
+						},
+						{
+							"key": "period[]",
+							"value": "2023-04-01",
+							"description": "Opcional (Caso usado, deve ser passado 2 vezes)"
+						},
+						{
+							"key": "period[]",
+							"value": "2023-04-30",
+							"description": "Opcional (Caso usado, deve ser passado 2 vezes)"
 						}
 					]
 				}
