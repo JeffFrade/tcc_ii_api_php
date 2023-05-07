@@ -20,10 +20,10 @@ class MetricRepository extends AbstractRepository
             $data = $data->where('id_arduino', $idArduino);
         }
 
-        /*if (count($period) > 0) {
+        if (count($period) > 0) {
             $data = $data->where('created_at', '>=', $period[0]);
             $data = $data->where('created_at', '<=', $period[1]);
-        }*/
+        }
 
         return $data->get($metrics);
     }

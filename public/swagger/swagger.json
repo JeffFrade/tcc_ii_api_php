@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "TCC II Api",
-        "version": "1.5.7"
+        "version": "1.6.0"
     },
     "servers": [
         {
@@ -35,6 +35,18 @@
                         "schema": {
                             "type": "int",
                             "example": 1
+                        }
+                    },
+                    {
+                        "name": "period[]",
+                        "in": "query",
+                        "description": "Array com as datas de início e término (Formato: Y-m-d Ex: 2023-01-01), é obrigatório passar 2 datas para o funcionamento correto",
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 ],
