@@ -41,8 +41,8 @@ class MetricService
         if (count($period) > 0) {
             $period = $this->validatePeriod($period);
 
-            $period[0] = DateHelper::parse($period[0]);
-            $period[1] = DateHelper::parse($period[1]);
+            $period[0] = DateHelper::parse($period[0])->startOfDay();
+            $period[1] = DateHelper::parse($period[1])->endOfDay();
 
             $period = $this->compareDates($period);
         }
