@@ -29,6 +29,6 @@ class DateHelper
     {
         return Carbon::parse($date)
             ->setTimezone(env('APP_TIMEZONE', 'UTC'))
-            ->format('Y-m-d H:i:s');
+            ->format('d/m/Y H:i:s');
     }
 }
