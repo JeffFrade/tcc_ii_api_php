@@ -13,7 +13,7 @@ use InvalidArgumentException;
 /**
  * @OA\Info(
  *     title="TCC II Api",
- *     version="1.6.2"
+ *     version="1.6.3"
  * )
  */
 class MetricController extends Controller
