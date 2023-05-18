@@ -40,9 +40,10 @@ class MetricService
         $conditions[] = $this->checkCo($avgCo);
         $conditions[] = $this->checkTemperature($avgTemperature);
 
-        $metrics['condicao'] = $this->verifyConditions($conditions);
-
-        return $metrics;
+        return [
+            'metrics' => $metrics,
+            'condition' => $this->verifyConditions($conditions)
+        ];
     }
 
     public function store(array $data)
