@@ -71,8 +71,9 @@ class MetricController extends Controller
             $metrics = $this->metricService->index($params);
 
             return response()->json([
-                'data' => $metrics,
+                'data' => $metrics['metrics'],
                 'total' => count($metrics),
+                'condicao' => $metrics['condition'],
                 'message' => 'Métricas encontradas!'
             ]);
         } catch (MetricNotFoundException $e) {

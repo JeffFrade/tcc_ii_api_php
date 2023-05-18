@@ -27,4 +27,20 @@ class MetricRepository extends AbstractRepository
 
         return $data->get($metrics);
     }
+
+    public function avg(int $idArduino = 0, array $period = [], string $metric = '')
+    {
+        $data = $this->model;
+
+        if ($idArduino > 0) {
+            $data = $data->where('id_arduino', $idArduino);
+        }
+
+        if (count($period) > 0) {
+            $data = $data->where('created_at', '>=', $period[0]);
+            $data = $data->where('created_at', '<=', $period[1]);
+        }
+
+        return $data->avg($metric);
+    }
 }
