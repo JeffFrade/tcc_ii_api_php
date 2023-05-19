@@ -156,20 +156,20 @@ class MetricService
     {
         if (in_array('red', $conditions)) {
             return [
-                'status' => 'Alerta',
+                'status' => 'Ruim',
                 'message' => 'Recomendável não treinar'
             ];
         }
 
         if (in_array('yellow', $conditions)) {
             return [
-                'status' => 'Atenção',
+                'status' => 'Moderado',
                 'message' => 'Treino permitido, com cautela'
             ];
         }
 
         return [
-            'status' => 'Aceitável',
+            'status' => 'Bom',
             'message' => 'Treino permitido'
         ];
     }
