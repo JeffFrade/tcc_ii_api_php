@@ -73,6 +73,7 @@ class MetricController extends Controller
             return response()->json([
                 'data' => $metrics['metrics'],
                 'condicao' => $metrics['condition'],
+                'medias' => $metrics['medias'],
                 'total' => count($metrics),
                 'message' => 'Métricas encontradas!'
             ]);

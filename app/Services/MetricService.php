@@ -34,15 +34,27 @@ class MetricService
         $avgCo2 = $this->metricRepository->avg($idArduino, $period, 'dioxido_carbono');
         $avgCo = $this->metricRepository->avg($idArduino, $period, 'monoxido_carbono');
         $avgTemperature = $this->metricRepository->avg($idArduino, $period, 'temperatura');
+        $avgSmoke = $this->metricRepository->avg($idArduino, $period, 'fumaca');
 
         $conditions[] = $this->checkHumidity($avgHumidity);
         $conditions[] = $this->checkCo2($avgCo2);
         $conditions[] = $this->checkCo($avgCo);
         $conditions[] = $this->checkTemperature($avgTemperature);
 
+        $verified = $this->verifyConditions($conditions);
+        $verified['id_arduino'] = (int) $idArduino;
+
         return [
             'metrics' => $metrics,
-            'condition' => $this->verifyConditions($conditions)
+            'condition' => $verified,
+            'medias' => [
+                'avg_humidity' => $avgHumidity,
+                'avg_co2' => $avgCo2,
+                'avg_co' => $avgCo,
+                'avg_temperature' => $avgTemperature,
+                'avg_smoke' => $avgSmoke
+            ]
+
         ];
     }
 
