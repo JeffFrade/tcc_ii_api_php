@@ -42,7 +42,6 @@ class MetricService
         $conditions[] = $this->checkTemperature($avgTemperature);
 
         $verified = $this->verifyConditions($conditions);
-        $verified['id_arduino'] = (int) $idArduino;
 
         return [
             'metrics' => $metrics,
