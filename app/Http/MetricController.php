@@ -74,7 +74,7 @@ class MetricController extends Controller
                 'data' => $metrics['metrics'],
                 'condicao' => $metrics['condition'],
                 'medias' => $metrics['medias'],
-                'total' => count($metrics),
+                'total' => count($metrics['metrics']),
                 'message' => 'Métricas encontradas!'
             ]);
         } catch (MetricNotFoundException $e) {
