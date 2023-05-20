@@ -132,7 +132,7 @@ class MetricService
     {
         $status = 'red';
 
-        if ($co2 < 1000) {
+        if ($co2 < 1) {
             $status = 'green';
         }
 
@@ -143,9 +143,9 @@ class MetricService
     {
         $status = 'red';
 
-        if ($co < 900) {
+        if ($co < 0.9) {
             $status = 'green';
-        } elseif ($co >= 900 && $co <= 1100) {
+        } elseif ($co >= 0.9 && $co <= 1.1) {
             $status = 'yellow';
         }
 
