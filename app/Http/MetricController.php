@@ -12,7 +12,7 @@ use InvalidArgumentException;
 
 /**
  * @OA\Info(
- *     title="TCC II Api",
+ *     title="J3M Api",
  *     version="2.0.0"
  * )
  */
