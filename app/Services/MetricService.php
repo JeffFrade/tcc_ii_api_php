@@ -134,6 +134,8 @@ class MetricService
 
         if ($co2 < 1) {
             $status = 'green';
+        } elseif ($co2 >= 1 && $co2 <= 5) {
+            $status = 'yellow';
         }
 
         return $status;

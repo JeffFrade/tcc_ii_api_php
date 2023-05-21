@@ -366,9 +366,15 @@
                     if (avgCo2 < 1) {
                         $('.co2-avg-card').addClass('text-bg-success');
                         $('.progress-co2').addClass('bg-success');
-                    }  else {
+                        $('.progress-co2').addClass('text-light');
+                    }  else if (avgCo2 >= 1 && avgCo2 <= 5) {
+                        $('.co2-avg-card').addClass('text-bg-warning');
+                        $('.progress-co2').addClass('bg-warning');
+                        $('.progress-co2').addClass('text-dark');
+                    } else {
                         $('.co2-avg-card').addClass('text-bg-danger');
                         $('.progress-co2').addClass('bg-danger');
+                        $('.progress-co2').addClass('text-light');
                     }
 
                     $('.co2-avg').html(avgCo2 + ' ppm');
@@ -496,7 +502,10 @@
             $('.progress-co').removeClass('text-dark');
 
             $('.progress-co2').removeClass('bg-success');
+            $('.progress-co2').removeClass('bg-warning');
             $('.progress-co2').removeClass('bg-danger');
+            $('.progress-co2').removeClass('text-light');
+            $('.progress-co2').removeClass('text-dark');
         }
     </script>
   </body>
