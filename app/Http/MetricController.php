@@ -13,7 +13,7 @@ use InvalidArgumentException;
 /**
  * @OA\Info(
  *     title="J3M API",
- *     version="2.0.2"
+ *     version="2.1.0"
  * )
  */
 class MetricController extends Controller
