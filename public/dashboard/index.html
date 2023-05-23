@@ -34,15 +34,15 @@
         }
 
         .success-color {
-            background-color: #198754;
+            background-color: #198754 !important;
         }
 
         .warning-color {
-            background-color: #ffc107;
+            background-color: #ffc107 !important;
         }
 
         .danger-color {
-            background-color: #dc3545;
+            background-color: #dc3545 !important;
         }
     </style>
   </head>
@@ -78,15 +78,13 @@
 
             <hr/>
 
-            <div class="row">
-                <div class="com-sm-12">
-                    <h3 class="condicao">Não há dados</h3>
-                </div>
+            <div class="condicao-alert alert" role="alert">
+                <h3 class="condicao">Não há dados</h3>
             </div>
 
             <hr/>
 
-            <div class="row">
+            <div class="row justify-content-md-center">
                 <div class="col-sm-6 col-md-2">
                     <div class="card mb-3 smoke-avg-card">
                         <div class="card-body">
@@ -179,16 +177,19 @@
                     <h4>Legendas</h4>
                     <table class="table table-responsive">
                         <tbody>
-                            <tr class="success-color">
-                                <td class="text-light"><i class="fa fa-check"></i>&nbsp; Bom</td>
+                            <tr>
+                                <td class="text-light success-color"><i class="fa fa-check"></i>&nbsp; Bom</td>
+                                <td>Métrica em condição boa</td>
                             </tr>
 
-                            <tr class="warning-color">
-                                <td class="text-dark"><i class="fa fa-warning"></i>&nbsp; Moderado</td>
+                            <tr>
+                                <td class="text-dark warning-color"><i class="fa fa-warning"></i>&nbsp; Moderado</td>
+                                <td>Métrica em condição moderada</td>
                             </tr>
 
-                            <tr class="danger-color">
-                                <td class="text-light"><i class="fa fa-times"></i>&nbsp; Ruim</td>
+                            <tr>
+                                <td class="text-light danger-color"><i class="fa fa-times"></i>&nbsp; Ruim</td>
+                                <td>Métrica em condição ruim</td>
                             </tr>
                         </tbody>
                     </table>
@@ -304,18 +305,22 @@
                     let avgCo = response.medias.avg_co.toString().slice(0, 6);
                     let avgTemperature = response.medias.avg_temperature.toString().slice(0, 4);
                     let avgCo2 = response.medias.avg_co2.toString().slice(0, 6);
+                    let condicaoIcon = '';
 
                     clear();
 
                     if (condicao.status == 'Bom') {
-                        $('.condicao').addClass('text-success');
+                        $('.condicao-alert').addClass('alert-success');
+                        condicaoIcon = '<i class="fa fa-check"></i>&nbsp; ';
                     } else if (condicao.status == 'Moderado') {
-                        $('.condicao').addClass('text-warning');
+                        $('.condicao-alert').addClass('alert-warning');
+                        condicaoIcon = '<i class="fa fa-warning"></i>&nbsp; ';
                     } else {
-                        $('.condicao').addClass('text-danger');
+                        $('.condicao-alert').addClass('alert-danger');
+                        condicaoIcon = '<i class="fa fa-times"></i>&nbsp; ';
                     }
 
-                    $('.condicao').html(condicao.message);
+                    $('.condicao').html(condicaoIcon + condicao.message);
 
                     $('.smoke-avg').html(avgSmoke + ' ppm');
                     $('.smoke-avg-card').addClass('text-bg-primary');
@@ -453,9 +458,9 @@
             $('.progress-co').attr('style', 'width: 0%');
             $('.progress-co2').attr('style', 'width: 0%');
 
-            $('.condicao').removeClass('text-success');
-            $('.condicao').removeClass('text-warning');
-            $('.condicao').removeClass('text-danger');
+            $('.condicao-alert').removeClass('alert-success');
+            $('.condicao-alert').removeClass('alert-warning');
+            $('.condicao-alert').removeClass('alert-danger');
 
             $('.smoke-avg-card').removeClass('text-bg-primary');
             $('.smoke-avg-card').removeClass('text-bg-success');
