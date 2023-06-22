@@ -221,7 +221,7 @@
             $.ajax({
                 contentType: 'application/json',
                 method: 'GET',
-                url: 'http://18.214.175.44:8080/api/users/arduinos',
+                url: 'http://localhost:8000/api/users/arduinos',
                 timeout: 0,
                 success: function (response) {
                     let sensors = response.data;
@@ -295,7 +295,7 @@
             $.ajax({
                 contentType: 'application/json',
                 method: 'GET',
-                url: 'http://18.214.175.44:8080/api/dispositivos',
+                url: 'http://localhost:8000/api/dispositivos',
                 data: {
                     id_arduino: idArduino,
                     period: date
